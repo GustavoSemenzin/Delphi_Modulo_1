@@ -1,0 +1,55 @@
+unit Pedido.Classe;
+
+interface
+
+uses
+   System.Classes,
+   Generics.Collections,
+   System.sysUtils;
+
+Type
+   TPedido = class;
+   TProduto = class;
+
+   TPedido = class
+   private
+      FCodigo: integer;
+    FProdutos: TObjectList<TProduto>;
+   public
+      constructor Create;
+      destructor Destroy; override;
+      property Codigo: integer read FCodigo write FCodigo;
+      property Produtos: TObjectList<TProduto> read FProdutos write FProdutos;
+      procedure montarMemo(memo: TMemo);
+   end;
+
+   TProduto = class
+   private
+      FCodigo: integer;
+      FNome: integer;
+      FPreco: double;
+      FQtde: integer;
+   public
+      property Codigo: integer read FCodigo write FCodigo;
+      property Nome: integer read FNome write FNome;
+      property Preco: double read FPreco write FPreco;
+      property Qtde: integer read FQtde write FQtde;
+   end;
+
+implementation
+
+constructor TPedido.Create;
+begin
+   FProdutos := TObjectList<TProduto>.Create();
+end;
+
+destructor TPedido.Destroy;
+begin
+   if Assigned(FProdutos) then
+      FreeAndNil(FProdutos);
+
+   inherited;
+
+end;
+
+end.
